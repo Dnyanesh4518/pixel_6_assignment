@@ -64,13 +64,18 @@ class UserProvider extends ChangeNotifier{
          increase limit by 10 and also will check whether it is less than total no records and
          then we will update userList with updated users list
        */
-      notifyListeners();
       limit+=10;
-      if(userList!.total!>limit)
+      if(userList!.total!>=limit)
         {
           userList = await AppLogic.getUserList(limit);
           notifyListeners();
         }
+      else{
+        // This will make sure that all remaining record should get fetched
+        int newLimit=limit+(userList!.total!-limit);
+        userList = await AppLogic.getUserList(newLimit);
+        notifyListeners();
+      }
     }
     Future<void> resetFilter() async{
       // This function will simply reset the filters
