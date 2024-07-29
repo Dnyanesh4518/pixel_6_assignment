@@ -113,6 +113,7 @@ class UserProvider extends ChangeNotifier{
           userList=UserList(
             users: filteredList,
           );
+          apply=false;
           notifyListeners();
         }
       else if(selectedCountry==null)
@@ -121,6 +122,7 @@ class UserProvider extends ChangeNotifier{
         userList=UserList(
           users: filteredList,
         );
+        apply=false;
         notifyListeners();
       }
       else

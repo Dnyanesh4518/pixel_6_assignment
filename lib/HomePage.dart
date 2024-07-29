@@ -66,6 +66,7 @@ class _HomepageState extends State<Homepage> {
           return const Center(child: CircularProgressIndicator());
         }
         else if (value.userList != null) {
+          final users=value.userList!.users??[];
           return Column(
                   children: [
                     Padding(
@@ -136,7 +137,14 @@ class _HomepageState extends State<Homepage> {
                                                   DropdownMenuItem(
                                                     value: 'India',
                                                     child: Text("India"),
-                                                  )
+                                                  ),
+                                                  DropdownMenuItem(
+                                                    value: ' Australia',
+                                                    child: Text("Australia"),
+                                                  ),DropdownMenuItem(
+                                                    value: ' England',
+                                                    child: Text("England"),
+                                                  ),
                                                 ],
                                                 onChanged: (String? e) {
                                                   Provider.of<UserProvider>(context, listen: false).setCountry(e.toString());
@@ -354,27 +362,37 @@ class _HomepageState extends State<Homepage> {
                                                         FontWeight.bold,
                                                     color: Colors.black)))
                                       ],
-                                      rows: value.userList!.users!
-                                              .map((user) => DataRow(cells: [
-                                                    DataCell(Text(user.id.toString())),
-                                                    DataCell(user.image !=
-                                                          null
-                                                        ? CircleAvatar(
-                                                            backgroundImage:
-                                                                NetworkImage(user
-                                                                    .image!))
-                                                        : const Icon(
-                                                            Icons.person)),
-                                                    DataCell(Text(
-                                                        "${user.firstName} ${user.maidenName} ${user.lastName}")),
-                                                    DataCell(Text(
-                                                        "${user.gender![0].toUpperCase()}/${user.age.toString()}")),
-                                                    DataCell(Text(user
-                                                        .company!.title!)),
-                                                    DataCell(Text(
-                                                        "${user.address!.state}, ${user.address!.country}"))
-                                                  ]))
-                                              .toList()),
+                                      rows: users.isEmpty?
+                                      [const DataRow(cells: [
+                                        DataCell(Text("No Match Found")),
+                                        DataCell(Text("")),
+                                        DataCell(Text("")),
+                                        DataCell(Text("")),
+                                        DataCell(Text("")),
+                                        DataCell(Text(""))
+                                      ])
+                                      ]:
+                                      users.map((user) => DataRow(cells:
+                                      [
+                                        DataCell(Text(user.id.toString())),
+                                        DataCell(user.image !=
+                                            null
+                                            ? CircleAvatar(
+                                            backgroundImage:
+                                            NetworkImage(user
+                                                .image!))
+                                            : const Icon(
+                                            Icons.person)),
+                                        DataCell(Text(
+                                            "${user.firstName} ${user.maidenName} ${user.lastName}")),
+                                        DataCell(Text(
+                                            "${user.gender![0].toUpperCase()}/${user.age.toString()}")),
+                                        DataCell(Text(user
+                                            .company!.title!)),
+                                        DataCell(Text(
+                                            "${user.address!.state}, ${user.address!.country}"))
+                                      ]
+                                      )).toList())
                                 ),
                               )
                             ]),
