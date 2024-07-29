@@ -19,7 +19,7 @@ class _HomepageState extends State<Homepage> {
        */
           Provider.of<UserProvider>(context, listen: false).getAllUsers().then((value){},
             onError:(e){
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No Connection")));
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No Connection",style: TextStyle(color: Colors.black),),backgroundColor: Colors.white,));
         });
     });
     controller.addListener(() {
@@ -31,7 +31,7 @@ class _HomepageState extends State<Homepage> {
       if (controller.position.pixels == controller.position.maxScrollExtent) {
         Provider.of<UserProvider>(context, listen: false).LoadMore().then((value){},
             onError:(e){
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No Connection")));
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No Connection",style: TextStyle(color: Colors.black),),backgroundColor: Colors.white,));
             });
       }
     });
